@@ -75,7 +75,7 @@ module.exports = {
             }
         }, function(err, metadata){
             if(_.isUndefined(err)){
-                metadata.provider = "aws";
+                metadata.provider = "amazon_web_services";
                 return fn(metadata);
             }
             else

@@ -41,7 +41,7 @@ module.exports = {
             }
         }, function(err, metadata){
             if(_.isUndefined(err)){
-                metadata.provider = "digitalocean";
+                metadata.provider = "digital_ocean";
                 return fn(metadata);
             }
             else

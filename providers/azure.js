@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const DOCKER_ENV_PATH = '/.dockerenv';
-let FILE_PATH = '/etc/cloud/cloud.cfg.d/99-rackspace-general.cfg';
+let FILE_PATH = '/etc/cloud/cloud.cfg.d/90-azure.cfg';
 
 module.exports = {
 
@@ -17,7 +17,7 @@ module.exports = {
                     return callback();
                 } else {
                     return callback({
-                        provider: 'rackspace'
+                        provider: 'azure'
                     });
                 }
             });

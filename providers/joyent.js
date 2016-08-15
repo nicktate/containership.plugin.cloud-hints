@@ -1,16 +1,26 @@
-var fs = require("fs");
+'use strict';
+
+const fs = require('fs');
+const DOCKER_ENV_PATH = '/.dockerenv';
+let FILE_PATH = '/lib/smartdc';
 
 module.exports = {
 
-    is_true: function(fn){
-        fs.stat("/lib/smartdc", function(err){
-            if(err)
-                return fn();
-            else{
-                return fn({
-                    provider: "joyent"
-                });
+    is_true: (callback) => {
+        fs.stat(DOCKER_ENV_PATH, (err, stats) => {
+            if(!err && stats) {
+                FILE_PATH = `/rootfs${FILE_PATH}`;
             }
+
+            fs.stat(FILE_PATH, (err, stats) => {
+                if(err) {
+                    return callback();
+                } else {
+                    return callback({
+                        provider: 'joyent'
+                    });
+                }
+            });
         });
     }
 
