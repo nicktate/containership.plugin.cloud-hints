@@ -16,11 +16,18 @@ module.exports = new ContainershipPlugin({
     },
 
     initialize: function(core){
-        if(core.options.mode === 'leader') {
-            return module.exports.runLeader(core);
+        if(!core || !core.logger) {
+            return console.warn('This plugin does not include any CLI support');
         }
 
-        return module.exports.runFollower(core);
+        if(core.options.mode === 'leader') {
+            return module.exports.runLeader(core);
+        } else if (core.options.mode === 'follower') {
+            return module.exports.runFollower(core);
+        } else if (core.logger) {
+            core.logger.register('cloud-hints-plugin');
+            return core.loggers['cloud-hints-plugin'].log('error', 'Invalid configuration found when stopping containership cloud-hints plugin!');
+        }
     },
 
     reload: function(){}
